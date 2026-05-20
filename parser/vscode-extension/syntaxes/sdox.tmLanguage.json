@@ -1,0 +1,184 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "SDOX",
+  "scopeName": "source.sdox",
+  "patterns": [
+    { "include": "#comment" },
+    { "include": "#tag-line" },
+    { "include": "#block-braces" }
+  ],
+  "repository": {
+    "comment": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.sdox",
+          "match": "//.*$"
+        }
+      ]
+    },
+    "tag-line": {
+      "patterns": [
+        {
+          "comment": "Structure tags: #title, #paragraph, #section, #divider, #toc, #ref",
+          "match": "(#)(title|paragraph|section|divider|toc|ref)\\b",
+          "captures": {
+            "1": { "name": "punctuation.definition.tag.sdox" },
+            "2": { "name": "keyword.control.structure.sdox" }
+          }
+        },
+        {
+          "match": "(#)(text|quote|note)\\b",
+          "captures": {
+            "1": { "name": "punctuation.definition.tag.sdox" },
+            "2": { "name": "keyword.control.semantic.sdox" }
+          }
+        },
+        {
+          "comment": "List tags: #list, #item",
+          "match": "(#)(list|item)\\b",
+          "captures": {
+            "1": { "name": "punctuation.definition.tag.sdox" },
+            "2": { "name": "keyword.control.list.sdox" }
+          }
+        },
+        {
+          "comment": "Link & media tags: #url, #image",
+          "match": "(#)(url|image)\\b",
+          "captures": {
+            "1": { "name": "punctuation.definition.tag.sdox" },
+            "2": { "name": "keyword.control.media.sdox" }
+          }
+        },
+        {
+          "comment": "Code & Integration tags: #code, #output, #html, #markdown, #math, #diagram",
+          "match": "(#)(code|output|html|markdown|math|diagram)\\b",
+          "captures": {
+            "1": { "name": "punctuation.definition.tag.sdox" },
+            "2": { "name": "keyword.control.code.sdox" }
+          }
+        },
+        {
+          "comment": "Table tags: #table, #row, #cell",
+          "match": "(#)(table|row|cell)\\b",
+          "captures": {
+            "1": { "name": "punctuation.definition.tag.sdox" },
+            "2": { "name": "keyword.control.table.sdox" }
+          }
+        },
+        {
+          "comment": "Visualization & Layout tags: #chart, #data, #timeline, #event, #grid, #column",
+          "match": "(#)(chart|data|timeline|event|grid|column)\\b",
+          "captures": {
+            "1": { "name": "punctuation.definition.tag.sdox" },
+            "2": { "name": "keyword.control.visualization.sdox" }
+          }
+        },
+        {
+          "comment": "Component tags: #card, #tab, #accordion, #badge, #changelog",
+          "match": "(#)(card|tab|accordion|badge|changelog)\\b",
+          "captures": {
+            "1": { "name": "punctuation.definition.tag.sdox" },
+            "2": { "name": "keyword.control.component.sdox" }
+          }
+        },
+        {
+          "comment": "Modularization tags: #include, #template, #use",
+          "match": "(#)(include|template|use)\\b",
+          "captures": {
+            "1": { "name": "punctuation.definition.tag.sdox" },
+            "2": { "name": "keyword.control.module.sdox" }
+          }
+        },
+        {
+          "comment": "AI-native tags: #metadata, #dataset, #example, #instruction, #response, #embedding, #chunk, #context, #completion",
+          "match": "(#)(metadata|dataset|example|instruction|response|embedding|chunk|context|completion)\\b",
+          "captures": {
+            "1": { "name": "punctuation.definition.tag.sdox" },
+            "2": { "name": "keyword.control.ai.sdox" }
+          }
+        },
+        {
+          "comment": "Unknown/custom tags",
+          "match": "(#)([a-z][a-z0-9_]*)\\b",
+          "captures": {
+            "1": { "name": "punctuation.definition.tag.sdox" },
+            "2": { "name": "keyword.control.other.sdox" }
+          }
+        },
+        {
+          "include": "#attribute-group"
+        }
+      ]
+    },
+    "attribute-group": {
+      "begin": "\\(",
+      "end": "\\)",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.parameters.begin.sdox" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.parameters.end.sdox" }
+      },
+      "patterns": [
+        { "include": "#attribute-name" },
+        { "include": "#string-value" },
+        { "include": "#boolean-value" },
+        { "include": "#numeric-value" },
+        {
+          "match": "=",
+          "name": "keyword.operator.assignment.sdox"
+        },
+        {
+          "match": ",",
+          "name": "punctuation.separator.comma.sdox"
+        }
+      ]
+    },
+    "attribute-name": {
+      "match": "([a-z][a-z0-9_]*)\\s*(?==)",
+      "captures": {
+        "1": { "name": "entity.other.attribute-name.sdox" }
+      }
+    },
+    "string-value": {
+      "begin": "\"",
+      "end": "\"",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.string.begin.sdox" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.string.end.sdox" }
+      },
+      "name": "string.quoted.double.sdox",
+      "patterns": [
+        {
+          "match": "\\\\[\"\\\\bfnrt/]",
+          "name": "constant.character.escape.sdox"
+        }
+      ]
+    },
+    "boolean-value": {
+      "match": "\\b(true|false)\\b",
+      "name": "constant.language.boolean.sdox"
+    },
+    "numeric-value": {
+      "match": "-?\\b\\d+(\\.\\d+)?\\b",
+      "name": "constant.numeric.sdox"
+    },
+    "block-braces": {
+      "begin": "\\{",
+      "end": "\\}",
+      "beginCaptures": {
+        "0": { "name": "punctuation.section.block.begin.sdox" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.section.block.end.sdox" }
+      },
+      "patterns": [
+        { "include": "#comment" },
+        { "include": "#tag-line" },
+        { "include": "#block-braces" }
+      ]
+    }
+  }
+}

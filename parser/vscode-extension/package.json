@@ -1,0 +1,102 @@
+{
+  "name": "sdox-tool",
+  "displayName": "SDOX Tool",
+  "description": "Full authoring environment for Scalable Document (SDOX) v0.2.0.",
+  "version": "0.2.0",
+  "publisher": "firzaelbuho",
+  "license": "MIT",
+  "icon": "icons/sdox-logo.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/firzaelbuho/scalable-document-sdox"
+  },
+  "homepage": "https://github.com/firzaelbuho/scalable-document-sdox",
+  "keywords": ["sdox", "scalable document", "preview", "syntax highlighting", "intellisense"],
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets",
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:sdox"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "sdox",
+        "aliases": ["SDOX", "Scalable Document", "sdox"],
+        "extensions": [".sdox"],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./icons/sdox-logo.svg",
+          "dark": "./icons/sdox-logo.svg"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "sdox",
+        "scopeName": "source.sdox",
+        "path": "./syntaxes/sdox.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "sdox.showPreview",
+        "title": "SDOX: Open Preview",
+        "icon": "$(open-preview)"
+      },
+      {
+        "command": "sdox.showPreviewToSide",
+        "title": "SDOX: Open Preview to the Side",
+        "icon": "$(open-preview)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "sdox.showPreviewToSide",
+          "when": "resourceLangId == sdox",
+          "group": "navigation"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "sdox.showPreview",
+          "when": "resourceLangId == sdox"
+        },
+        {
+          "command": "sdox.showPreviewToSide",
+          "when": "resourceLangId == sdox"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "sdox.showPreview",
+        "key": "ctrl+shift+v",
+        "when": "resourceLangId == sdox"
+      },
+      {
+        "command": "sdox.showPreviewToSide",
+        "key": "ctrl+k v",
+        "when": "resourceLangId == sdox"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0",
+    "@types/node": "18.x",
+    "typescript": "^5.1.3"
+  }
+}
