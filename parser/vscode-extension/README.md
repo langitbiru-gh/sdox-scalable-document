@@ -8,19 +8,22 @@
 
 Rich, category-aware colorization for all SDOX tags:
 
-- **Structure** — `#title`, `#paragraph`, `#section`, `#divider`
-- **Text & Semantics** — `#text`, `#quote`, `#note`
+- **Structure & Navigation** — `#title`, `#paragraph`, `#section`, `#divider`, `#toc`, `#ref`
+- **Text & Semantics** — `#text`, `#quote`, `#note`, `#term`, `#definition`
 - **Lists** — `#list`, `#item`
-- **Links & Media** — `#url`, `#image`
+- **Links & Media** — `#url`, `#image`, `#video`, `#audio`
+- **Visualization** — `#chart`, `#data`, `#timeline`, `#event`
+- **Mathematics & Diagrams** — `#math` (LaTeX), `#diagram` (Mermaid)
 - **Code** — `#code`, `#output`
 - **Tables** — `#table`, `#row`, `#cell`
-- **Components** — `#card`, `#tab`, `#accordion`
+- **Components** — `#card`, `#tab`, `#accordion`, `#badge`, `#changelog`
 - **Modularization** — `#include`, `#template`, `#use`
 - **AI-Native** — `#metadata`, `#dataset`, `#instruction`, `#response`, `#example`, `#embedding`, `#chunk`, `#context`, `#completion`
+- **Integrations** — `#html`, `#markdown`
 
 ### 🧠 IntelliSense
 
-Smart auto-completion powered by the SDOX v0.1.0 tag schema:
+Smart auto-completion powered by the SDOX v0.2.0 tag schema:
 
 - Type `#` to see all available tags with descriptions
 - Type `(` after a tag to get attribute suggestions
@@ -45,6 +48,7 @@ Side-by-side rendered preview of your SDOX documents:
   - `Ctrl+K V` — Open preview to the side
 - Real-time updates as you type (300ms debounce)
 - Premium dark theme with semantic styling
+- Native rendering for **Mermaid.js**, **KaTeX/LaTeX**, **marked** Markdown, and data **Charts** directly in the editor preview.
 
 ## Usage
 
@@ -55,19 +59,25 @@ Side-by-side rendered preview of your SDOX documents:
 ### Example SDOX Document
 
 ```sdox
-#title(level=1) Hello SDOX
+#title(level=1) Hello SDOX v0.2.0
 
 #paragraph {
   Scalable Document is a structured, semantic,
   AI-friendly document language.
 }
 
-#code(language="python") {
-  print("hello, sdox!")
-}
-
-#note(type="info") {
-  SDOX supports all common text encodings.
+#grid(columns=2) {
+  #column {
+    #chart(title="Data View") {
+      #data(label="A", value=60)
+      #data(label="B", value=100)
+    }
+  }
+  #column {
+    #math(display="block") {
+      \int x^2 \, dx = \frac{x^3}{3} + C
+    }
+  }
 }
 ```
 
@@ -80,6 +90,13 @@ Side-by-side rendered preview of your SDOX documents:
 - VS Code 1.80.0 or higher
 
 ## Release Notes
+
+### 0.2.0 (Stable)
+
+- Integrated KaTeX, Mermaid, and marked JS for rich rendering directly in Live Preview.
+- Added syntax highlighting and completions for `#chart`, `#data`, `#timeline`, `#event`, `#math`, `#diagram`, `#grid`, `#column`, `#badge`, `#toc`, `#ref`, `#term`, `#definition`, `#changelog`, `#html`, and `#markdown`.
+- Standalone `#item` visual styling added.
+- Updated to v0.2.0 AST specification rules.
 
 ### 0.1.0
 

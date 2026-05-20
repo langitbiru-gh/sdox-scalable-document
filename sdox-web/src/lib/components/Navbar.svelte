@@ -31,7 +31,7 @@
 		<a href="/" class="logo" onclick={closeMobile}>
 			<img src="/favicon.svg" alt="SDOX Logo" class="logo-icon" width="28" height="28" />
 			<span class="logo-text">SDOX</span>
-			<span class="logo-version">v0.1</span>
+			<span class="logo-version">v0.2.0</span>
 		</a>
 
 		<div class="nav-links" class:open={mobileOpen}>

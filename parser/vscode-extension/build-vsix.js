@@ -10,7 +10,7 @@ const path = require('path');
 const { execSync } = require('child_process');
 
 const ROOT = __dirname;
-const VSIX_NAME = 'sdox-tool-0.1.0.vsix';
+const VSIX_NAME = 'sdox-tool-0.2.0.vsix';
 const STAGE_DIR = path.join(ROOT, '.vsix-staging');
 const EXTENSION_DIR = path.join(STAGE_DIR, 'extension');
 
@@ -30,6 +30,7 @@ const includeDirs = [
     'out',
     'syntaxes',
     'icons',
+    'lib',          // KaTeX, Mermaid, Marked bundled libraries
     'src/preview',  // for CSS
 ];
 
