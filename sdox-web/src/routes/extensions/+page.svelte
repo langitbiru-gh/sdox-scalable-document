@@ -40,7 +40,7 @@
 
 				<div class="ext-actions">
 					<a
-						href="https://github.com/firzaelbuho/scalable-document-sdox/releases/download/0.2.0/sdox-chrome-extension.0.2.0.zip"
+						href="https://github.com/langitbiru-gh/sdox-scalable-document/releases/download/0.2.0/sdox-chrome-extension-0.2.0.zip"
 						download="sdox-chrome-extension-v0.2.0.zip"
 						rel="external"
 						class="btn btn-primary"
@@ -49,7 +49,6 @@
 							width="18"
 							height="18"
 							viewBox="0 0 24 24"
-							fill="none"
 							stroke="currentColor"
 							stroke-width="2"
 							stroke-linecap="round"
