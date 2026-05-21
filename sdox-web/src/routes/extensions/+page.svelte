@@ -78,39 +78,60 @@
 			</div>
 		</div>
 
-		<!-- VS Code Extension Card (Coming Soon) -->
-		<div class="extension-card vscode-ext disabled">
+		<!-- VS Code Extension Card -->
+		<div class="extension-card vscode-ext">
 			<div class="ext-icon-wrapper">
-				<svg
-					width="48"
-					height="48"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="1.5"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					class="ext-logo vscode-icon"
-				>
-					<path d="M4 18l-2-2 2-2M20 6l2 2-2 2M14 2l4 4M10 22l-4-4"></path>
-					<path d="M14 2v20M10 2v20"></path>
-				</svg>
+				<img src="/favicon.svg" alt="SDOX Tools VS Code Extension" class="ext-logo" />
+				<div class="glow-effect vscode-glow"></div>
 			</div>
 
 			<div class="ext-content">
 				<div class="ext-badges">
-					<span class="badge status-upcoming">Coming Soon</span>
+					<span class="badge status-released">Released v0.2.0</span>
 					<span class="badge platform-vscode">VS Code</span>
 				</div>
 
-				<h2 class="ext-title">SDOX Language Server</h2>
+				<h2 class="ext-title">SDOX Tools</h2>
 				<p class="ext-description">
-					The official VS Code extension for SDOX. Will feature advanced syntax highlighting, tag
-					autocompletion, real-time AST linting, and side-by-side Live Preview.
+					The official VS Code extension for SDOX. Features advanced syntax highlighting, tag
+					autocompletion with IntelliSense, hover documentation, and side-by-side Live Preview
+					with built-in KaTeX, Mermaid, and Markdown rendering.
 				</p>
 
 				<div class="ext-actions">
-					<button class="btn btn-secondary" disabled> In Development </button>
+					<a
+						href="https://marketplace.visualstudio.com/items?itemName=langitbiru.sdox-tools"
+						target="_blank"
+						rel="external"
+						class="btn btn-primary"
+					>
+						<svg
+							width="18"
+							height="18"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+							<polyline points="15 3 21 3 21 9"></polyline>
+							<line x1="10" y1="14" x2="21" y2="3"></line>
+						</svg>
+						Install from Marketplace
+					</a>
+				</div>
+
+				<div class="ext-instructions">
+					<h3>Installation Guide</h3>
+					<ol>
+						<li>Open <strong>VS Code</strong> and go to the <strong>Extensions</strong> panel (<code>Ctrl+Shift+X</code>).</li>
+						<li>Search for <code>SDOX Tools</code> by <strong>langitbiru</strong>.</li>
+						<li>Click <strong>Install</strong>.</li>
+						<li>Open any <code>.sdox</code> file — syntax highlighting and IntelliSense will activate automatically.</li>
+						<li>Press <code>Ctrl+K V</code> to open the <strong>side-by-side Live Preview</strong>.</li>
+					</ol>
 				</div>
 			</div>
 		</div>
@@ -194,6 +215,10 @@
 	.vscode-icon {
 		color: #3b82f6;
 		filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.5));
+	}
+
+	.vscode-glow {
+		background: #3b82f6 !important;
 	}
 
 	.glow-effect {

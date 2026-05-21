@@ -1,9 +1,9 @@
 {
-  "name": "sdox-tool",
-  "displayName": "SDOX Tool",
+  "name": "sdox-tools",
+  "displayName": "SDOX Tools",
   "description": "Full authoring environment for Scalable Document (SDOX) v0.2.0.",
   "version": "0.2.0",
-  "publisher": "firzaelbuho",
+  "publisher": "langitbiru",
   "license": "MIT",
   "icon": "icons/sdox-logo.png",
   "repository": {
@@ -11,7 +11,13 @@
     "url": "https://github.com/firzaelbuho/scalable-document-sdox"
   },
   "homepage": "https://github.com/firzaelbuho/scalable-document-sdox",
-  "keywords": ["sdox", "scalable document", "preview", "syntax highlighting", "intellisense"],
+  "keywords": [
+    "sdox",
+    "scalable document",
+    "preview",
+    "syntax highlighting",
+    "intellisense"
+  ],
   "engines": {
     "vscode": "^1.80.0"
   },
@@ -28,8 +34,14 @@
     "languages": [
       {
         "id": "sdox",
-        "aliases": ["SDOX", "Scalable Document", "sdox"],
-        "extensions": [".sdox"],
+        "aliases": [
+          "SDOX",
+          "Scalable Document",
+          "sdox"
+        ],
+        "extensions": [
+          ".sdox"
+        ],
         "configuration": "./language-configuration.json",
         "icon": {
           "light": "./icons/sdox-logo.svg",

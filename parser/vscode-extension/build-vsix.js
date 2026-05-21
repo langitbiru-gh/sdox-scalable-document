@@ -132,4 +132,4 @@ fs.rmSync(STAGE_DIR, { recursive: true });
 console.log(`\n✅ Package created: ${VSIX_NAME}`);
 console.log(`   Size: ${(fs.statSync(vsixPath).size / 1024).toFixed(1)} KB`);
 console.log(`\n📦 Upload this file to:`);
-console.log(`   https://marketplace.visualstudio.com/manage/publishers/firzaelbuho`);
+console.log(`   https://marketplace.visualstudio.com/manage/publishers/langitbiru`);
