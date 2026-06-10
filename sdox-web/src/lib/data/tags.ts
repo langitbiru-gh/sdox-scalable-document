@@ -960,6 +960,155 @@ export const tagCategories: TagCategory[] = [
 				]
 			}
 		]
+	},
+	// ------------------------------------------
+	// Interactive Elements (v0.3.0)
+	// ------------------------------------------
+	{
+		id: 'interactive',
+		name: 'Interactive Elements',
+		icon: '🕹️',
+		color: '#f43f5e',
+		description: 'Interactive widgets, classroom polls, steppers, study cards, and random drawings.',
+		tags: [
+			{
+				name: 'question',
+				description: 'Represents an interactive question or quiz item.',
+				attributes: [
+					{ name: 'id', type: 'string', description: 'Optional unique identifier.' },
+					{
+						name: 'type',
+						type: 'enum',
+						description: 'Question selection mode.',
+						default: 'single-choice',
+						values: ['single-choice', 'multiple-choice', 'true-false']
+					}
+				],
+				examples: [
+					{
+						code: '#question(id="q-1", type="single-choice") {\n  What is the recommended file extension for SDOX?\n  #option(key="a") .md\n  #option(key="b", correct=true) .sdox\n  #option(key="c") .xldm\n  #explanation {\n    The correct answer is .sdox.\n  }\n}'
+					}
+				]
+			},
+			{
+				name: 'option',
+				description: 'A selectable choice option within a question.',
+				attributes: [
+					{ name: 'key', type: 'string', required: true, description: 'Selectable option key (e.g. "a", "b").' },
+					{ name: 'correct', type: 'boolean', description: 'Whether this is the correct choice.', default: 'false' },
+					{ name: 'explanation', type: 'string', description: 'Shorthand feedback message shown when selected.' }
+				],
+				examples: [{ code: '#option(key="a", correct=true) Option A' }]
+			},
+			{
+				name: 'explanation',
+				description: 'A block of rich feedback content shown once a question is answered.',
+				attributes: [],
+				examples: [
+					{
+						code: '#explanation {\n  The correct answer is #text(style="bold") SDOX!\n}'
+					}
+				]
+			},
+			{
+				name: 'flashcard',
+				description: 'A study card that flips to reveal the back side content when clicked.',
+				attributes: [
+					{ name: 'id', type: 'string', description: 'Optional unique identifier.' }
+				],
+				examples: [
+					{
+						code: '#flashcard {\n  #front {\n    What does SDOX stand for?\n  }\n  #back {\n    Scalable Document\n  }\n}'
+					}
+				]
+			},
+			{
+				name: 'front',
+				description: 'The front side panel container of a flashcard.',
+				attributes: [],
+				examples: [{ code: '#front { What is SDOX? }' }]
+			},
+			{
+				name: 'back',
+				description: 'The back side panel container of a flashcard.',
+				attributes: [],
+				examples: [{ code: '#back { A semantic document language. }' }]
+			},
+			{
+				name: 'stepper',
+				description: 'A sequential multi-step interactive walkthrough or wizard guide.',
+				attributes: [
+					{ name: 'id', type: 'string', required: true, description: 'Unique stepper identifier.' },
+					{ name: 'linear', type: 'boolean', description: 'Force sequential completing of steps.', default: 'true' }
+				],
+				examples: [
+					{
+						code: '#stepper(id="guide", linear=true) {\n  #step(title="First") { Step A Content }\n  #step(title="Second") { Step B Content }\n}'
+					}
+				]
+			},
+			{
+				name: 'step',
+				description: 'An individual step block panel inside a stepper.',
+				attributes: [
+					{ name: 'title', type: 'string', required: true, description: 'Title label of the step.' },
+					{ name: 'optional', type: 'boolean', description: 'Mark step as optional.', default: 'false' }
+				],
+				examples: [{ code: '#step(title="Step Name") { ... }' }]
+			},
+			{
+				name: 'poll',
+				description: 'An interactive simulator counter for live classroom voting sessions.',
+				attributes: [
+					{ name: 'id', type: 'string', required: true, description: 'Unique poll identifier.' },
+					{ name: 'question', type: 'string', description: 'Optional poll header text.' },
+					{ name: 'closed', type: 'boolean', description: 'Disable further voting.', default: 'false' }
+				],
+				examples: [
+					{
+						code: '#poll(id="class-vote") {\n  #choice(key="a", label="Alice", votes=10)\n  #choice(key="b", label="Bob", votes=12)\n}'
+					}
+				]
+			},
+			{
+				name: 'choice',
+				description: 'A selectable option within a live classroom poll.',
+				attributes: [
+					{ name: 'key', type: 'string', required: true, description: 'Unique choice key.' },
+					{ name: 'label', type: 'string', required: true, description: 'Human-readable label for the choice.' },
+					{ name: 'votes', type: 'number', description: 'Initial vote seed count.', default: '0' }
+				],
+				examples: [{ code: '#choice(key="a", label="Option A", votes=10)' }]
+			},
+			{
+				name: 'random-picker',
+				description: 'An interactive lucky spin-wheel, card flip, or raffle drawer widget.',
+				attributes: [
+					{ name: 'id', type: 'string', required: true, description: 'Unique picker identifier.' },
+					{
+						name: 'type',
+						type: 'enum',
+						description: 'Picker visual display style.',
+						default: 'spin-wheel',
+						values: ['spin-wheel', 'card-flip', 'raffle']
+					}
+				],
+				examples: [
+					{
+						code: '#random-picker(id="arisan", type="spin-wheel") {\n  #picker-option(label="John")\n  #picker-option(label="Jane")\n}'
+					}
+				]
+			},
+			{
+				name: 'picker-option',
+				description: 'An entry inside the random picker raffle pool.',
+				attributes: [
+					{ name: 'label', type: 'string', required: true, description: 'Name of the option.' },
+					{ name: 'weight', type: 'number', description: 'Relative probability weight.', default: '1' }
+				],
+				examples: [{ code: '#picker-option(label="Alice", weight=2)' }]
+			}
+		]
 	}
 ];
 

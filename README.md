@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/version-0.2.0-blue?style=flat-square" alt="Version" />
+  <img src="https://img.shields.io/badge/version-0.3.0-blue?style=flat-square" alt="Version" />
   <img src="https://img.shields.io/badge/status-Stable-green?style=flat-square" alt="Status" />
   <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="License" />
 </p>
@@ -13,7 +13,7 @@
 SDOX rethinks how documents should be written. Instead of relying on fragile symbols and ambiguous syntax, every element is a **semantic tag** — consistent, predictable, and machine-readable by design.
 
 ```sdox
-#title(level=1) Getting Started with SDOX v0.2.0
+#title(level=1) Getting Started with SDOX v0.3.0
 
 #paragraph {
   Scalable Document is a structured document language
@@ -92,7 +92,7 @@ SDOX rethinks how documents should be written. Instead of relying on fragile sym
 
 ---
 
-## 🏷️ Tag Categories (v0.2.0 Spec)
+## 🏷️ Tag Categories (v0.3.0 Spec)
 
 ### 📄 Structure
 `#title` · `#paragraph` · `#section` · `#divider`
@@ -129,6 +129,9 @@ SDOX rethinks how documents should be written. Instead of relying on fragile sym
 
 ### 🔌 Integrations
 `#html` · `#markdown`
+
+### 🕹️ Interactive Elements
+`#question` · `#option` · `#explanation` · `#flashcard` · `#front` · `#back` · `#stepper` · `#step` · `#poll` · `#choice` · `#random-picker` · `#picker-option`
 
 ---
 
@@ -200,6 +203,7 @@ architecture.sdox
 
 - [x] Initial specification draft (`v0.1.0`)
 - [x] AST specification v0.2.0
+- [x] Interactive active document tags (`v0.3.0`)
 - [x] Web Renderer & Live Preview editor (`sdox-web`)
 - [x] Chrome Extension parser & viewer
 - [x] VS Code Tooling Extension (`sdox-tool`) with syntax highlighting & Intellisense

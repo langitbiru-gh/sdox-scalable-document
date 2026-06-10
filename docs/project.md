@@ -2,7 +2,7 @@
 
 ## Initial Specification Draft
 
-Version: `0.2.0`
+Version: `0.3.0`
 Status: Draft
 
 ---
@@ -713,6 +713,120 @@ Attributes:
 
 ---
 
+# Interactive Tags
+
+Interactive widgets, classroom polls, steppers, study cards, and random drawings.
+
+## question, option & explanation
+Interactive single/multiple choice quiz.
+```xldm
+#question(id="q-1", type="single-choice") {
+  What is the recommended file extension for Scalable Document (SDOX)?
+
+  #option(key="a") .md
+  #option(key="b", correct=true) .sdox
+  #option(key="c") .xldm
+
+  #explanation {
+    The correct answer is #text(style="bold") .sdox.
+    The .xldm extension was used in older draft discussions but has been deprecated in favor of .sdox.
+  }
+}
+```
+
+Attributes for `question`:
+* `id`
+* `type` (enum: `"single-choice"`, `"multiple-choice"`, `"true-false"`)
+
+Attributes for `option`:
+* `key`
+* `correct` (boolean)
+* `explanation` (string, optional shorthand)
+
+---
+
+## flashcard, front & back
+A study flashcard that flips when clicked.
+```xldm
+#flashcard(id="fc-1") {
+  #front {
+    What does SDOX stand for?
+  }
+  #back {
+    #text(style="bold") Scalable Document
+  }
+}
+```
+
+Attributes for `flashcard`:
+* `id`
+
+---
+
+## stepper & step
+Sequential walkthrough guides or tutorial wizards.
+```xldm
+#stepper(id="install-guide", linear=true) {
+  #step(title="Prerequisites") {
+    Ensure Bun is installed on your computer.
+  }
+  #step(title="Installation") {
+    Run: #code(language="bash") { bun install }
+  }
+}
+```
+
+Attributes for `stepper`:
+* `id`
+* `linear` (boolean)
+
+Attributes for `step`:
+* `title`
+* `optional` (boolean)
+
+---
+
+## poll & choice
+Classroom voting or live local polling simulator.
+```xldm
+#poll(id="class-leader", question="Vote for Class President") {
+  #choice(key="a", label="Alice", votes=12)
+  #choice(key="b", label="Bob", votes=15)
+}
+```
+
+Attributes for `poll`:
+* `id`
+* `question`
+* `closed` (boolean)
+
+Attributes for `choice`:
+* `key`
+* `label`
+* `votes` (number)
+
+---
+
+## random-picker & picker-option
+A spinning wheel, raffle, or card shuffle randomizer.
+```xldm
+#random-picker(id="arisan", type="spin-wheel") {
+  #picker-option(label="Budi", weight=1)
+  #picker-option(label="Siti", weight=1)
+  #picker-option(label="Joko", weight=2)
+}
+```
+
+Attributes for `random-picker`:
+* `id`
+* `type` (enum: `"spin-wheel"`, `"card-flip"`, `"raffle"`)
+
+Attributes for `picker-option`:
+* `label`
+* `weight` (number)
+
+---
+
 # Naming Conventions
 
 ## Recommended Rules
@@ -841,7 +955,7 @@ Example:
 Recommended initial version:
 
 ```txt
-0.2.0
+0.3.0
 ```
 
 Reason:

@@ -5,6 +5,18 @@ All notable changes to the **Scalable Document (SDOX)** project will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-05-26 (Planned)
+
+### Added
+- **Interactive Elements Category**: Introduced a comprehensive suite of 5 major dynamic elements to shift SDOX from static markup to active, immersive documents:
+  - **Quizzes & Assessments**: `#question`, `#option`, and `#explanation` tags for rich self-testing with reset capabilities.
+  - **Study Flashcards**: `#flashcard`, `#front`, and `#back` tags for double-sided flip components.
+  - **Tutorial Wizards**: `#stepper` and `#step` tags for sequential interactive guides.
+  - **Live Classroom Polls**: `#poll` and `#choice` tags for multi-vote live tallying and percentage rendering.
+  - **Lucky Drawings**: `#random-picker` and `#picker-option` tags for spinning wheels, card shuffles, and raffles.
+- **AST v0.3.0**: New version-specific AST grammar, schemas, and node registries to map all 12 interactive elements.
+- **Dictionary v0.3.0**: Standardized SDOX-to-HTML conversion standard for stateful rendering of interactive components.
+
 ## [0.2.0] - 2026-05-15 (Planned)
 
 ### Added

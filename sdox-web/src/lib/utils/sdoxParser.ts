@@ -36,7 +36,19 @@ const CONTAINER_TAGS = new Set([
 	'grid',
 	'chart',
 	'timeline',
-	'changelog'
+	'changelog',
+	'question',
+	'option',
+	'explanation',
+	'flashcard',
+	'front',
+	'back',
+	'stepper',
+	'step',
+	'poll',
+	'choice',
+	'random-picker',
+	'picker-option'
 ]);
 
 export function parseSdox(input: string): ASTNode {

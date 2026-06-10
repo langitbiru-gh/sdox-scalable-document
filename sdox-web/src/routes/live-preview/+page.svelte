@@ -143,6 +143,70 @@
     #item(done=true) Integrated Mermaid.
   }
 }
+
+#section(title="15. Interactive Features (v0.3.0)") {
+  #paragraph { Test the brand new interactive elements of SDOX v0.3.0! }
+
+  #grid(columns=2) {
+    #column {
+      #card(title="Interactive Quiz") {
+        #question {
+          #paragraph { Which language format is completely deterministic? }
+          #option(key="A", explanation="Markdown has multiple parser interpretations.") Markdown
+          #option(key="B", correct=true, explanation="Yes! SDOX uses PEG parser grammar making it 100% deterministic.") SDOX
+          #option(key="C", explanation="HTML can be forgiving and has parser quirks.") HTML
+          #explanation {
+            SDOX was built from the ground up to solve Markdown's parser ambiguity, which is critical for deterministic LLM parsing.
+          }
+        }
+      }
+      
+      #card(title="Flashcard Component") {
+        #flashcard {
+          #front {
+            What is SDOX?
+          }
+          #back {
+            A semantic and structured document language designed for the AI era.
+          }
+        }
+      }
+    }
+    
+    #column {
+      #card(title="Classroom Poll") {
+        #poll(question="What is your favorite new tag?") {
+          #choice(key="q", label="#question")
+          #choice(key="f", label="#flashcard")
+          #choice(key="p", label="#random-picker")
+        }
+      }
+
+      #card(title="Random Spinner Wheel") {
+        #random-picker {
+          #picker-option(weight=1) { SDOX }
+          #picker-option(weight=1) { Markdown }
+          #picker-option(weight=1) { HTML }
+          #picker-option(weight=1) { XML }
+        }
+      }
+    }
+  }
+
+  #card(title="Wizard Stepper") {
+    #stepper(linear=true) {
+      #step(title="Define Schema") {
+        #paragraph { Write down all tag definitions in JSON format under the version specification directory. }
+      }
+      #step(title="Parse and Validate") {
+        #paragraph { Use PEG.js to parse the SDOX text into a structured AST, matching JSON schema rules. }
+      }
+      #step(title="Render premium UI") {
+        #paragraph { Hand over the structured AST to custom Svelte components to render state-of-the-art interactive pages. }
+      }
+    }
+  }
+}
 `);
 
 	// Reactively compute the AST whenever the input changes

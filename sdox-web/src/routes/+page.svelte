@@ -159,7 +159,7 @@ print("hello")
 					Documentation
 				</a>
 				<a
-					href="https://github.com/firzaelbuho/scalable-document-sdox"
+					href="https://github.com/langitbiru-gh/sdox-scalable-document"
 					target="_blank"
 					rel="noopener noreferrer"
 					class="btn btn-secondary"

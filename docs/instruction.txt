@@ -28,17 +28,27 @@ buatkan chrome extension untuk bisa memformat / menampilkan file text sdox ini d
 
 saya kan punya project : docs\project.md
 
-saat ini sudah versi 0.1.0
+saat ini sudah versi 0.2.0
 
 untuk daftar tags ada di : docs\tags\[version].json
 untuk  dictionary di : docs\dictionary\[version].md
 
 ast di : parser\ast\[version]
 
-nah rencana mau update ke 0.2.0
+nah rencana mau update ke 0.3.0
 
 saya mau menambahkan tag tag element yg berkaitan dengan : visualisai data chart itu ada bar, line dll.
 
 lalu notasi matematika seperti persamaan, rumus, dll selengkap mungkin sampe bisa kayak integral/ turunan, limit selengkap mungkin semua yg ada di ilmu matematika simbolnya harus ada
 
 diagram kayak flowchart, lalu timeline gitu . gimana menurut anda, kita diskusi dulu
+
+
+######
+
+docs\project.md
+docs\tags\[version].json
+docs\dictionary\[version].md
+parser\ast\[version]
+README.md
+CHANGELOG.md

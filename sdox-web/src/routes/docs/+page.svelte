@@ -206,18 +206,34 @@
 					<div class="preview-header">
 						<span>Preview: sdox-llm-dataset.md</span>
 					</div>
-					<pre><code># SDOX (Scalable Document) v0.2.0 - LLM Knowledge Dataset
+					<pre><code># SDOX (Scalable Document) v0.2.0 — Complete LLM Reference
 
-You are an AI assistant generating SDOX (Scalable Document) format. 
-SDOX is a deterministic, semantic document language that replaces Markdown. Everything in SDOX is a tag. 
-There is no ambiguous syntax (like *, #, or > in Markdown). 
+This document is the official knowledge base for the SDOX format. 
+Please study and learn these rules so you know what SDOX is and how it works.
+You can converse normally in Markdown, but when asked to generate SDOX code, you must use these tags.
+SDOX is a deterministic, semantic document language where every element is a `#tag`.
 
 ## 1. Syntax Rules
-1. **Tag Format**: Every element is defined by a tag starting with `#`.
-   - **Inline Form**: `#tag(attr="value") content...`
-   - **Block Form**: `#tag(attr="value") &#123; content... &#125;`
+- Inline Form: #tag(attr="value") content text here
+- Block Form:  #tag(attr="value") &amp;#123; content... &amp;#125;
+- Raw Content Tags: #code, #output, #math, #diagram, #html, #markdown
+- Container Tags: #section, #list, #grid, #chart, #timeline, #changelog, ...
 
-[...Download to see full rules & tag dictionary...]</code></pre>
+## 2. Complete Tag Reference (40+ tags)
+📄 Structure: #title, #paragraph, #section, #divider
+✏️ Semantics: #text, #quote, #note
+📋 Lists: #list, #item
+🔗 Media: #url, #image, #video, #audio
+📊 Visualization: #chart, #data, #timeline, #event
+📐 Math &amp; Diagrams: #math (LaTeX), #diagram (Mermaid)
+💻 Code: #code, #output
+🧩 Layout: #card, #tab, #accordion, #grid, #column, #badge
+📦 Modular: #include, #template, #use
+🤖 AI-Native: #instruction, #response, #dataset, #embedding, ...
+🧭 Navigation: #toc, #ref, #term, #definition, #changelog
+🔌 Integrations: #html, #markdown
+
+[...Download to see full examples, attributes &amp; generation rules...]</code></pre>
 				</div>
 			</div>
 		</DocSection>

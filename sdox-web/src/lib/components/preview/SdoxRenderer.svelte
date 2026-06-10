@@ -15,6 +15,74 @@
 	let accordionOpen = $state(false);
 	function toggleAccordion() { accordionOpen = !accordionOpen; }
 
+	// --- v0.3.0 Interactive States ---
+	// #question
+	let selectedOptionKey = $state<string | null>(null);
+	let isAnswered = $state(false);
+
+	// #flashcard
+	let isFlipped = $state(false);
+
+	// #stepper
+	let currentStepIndex = $state(0);
+
+	// #poll
+	let pollVotes = $state<Record<string, number>>({});
+	$effect(() => {
+		if (node.type === 'poll') {
+			const seed: Record<string, number> = {};
+			node.children.filter(c => c.type === 'choice').forEach(c => {
+				seed[c.attributes.key] = Number(c.attributes.votes || 0);
+			});
+			pollVotes = seed;
+		}
+	});
+
+	// #random-picker
+	let winnerName = $state<string | null>(null);
+	let isSpinning = $state(false);
+	let spinAngle = $state(0);
+
+	function triggerPicker(options: any[]) {
+		if (isSpinning || options.length === 0) return;
+		isSpinning = true;
+		winnerName = null;
+		
+		const totalWeight = options.reduce((sum, opt) => sum + (Number(opt.attributes.weight || 1)), 0);
+		
+		let r = Math.random() * totalWeight;
+		let selectedOpt = options[0];
+		for (const opt of options) {
+			r -= Number(opt.attributes.weight || 1);
+			if (r <= 0) {
+				selectedOpt = opt;
+				break;
+			}
+		}
+		
+		const targetAngle = spinAngle + 1800 + Math.random() * 360;
+		spinAngle = targetAngle;
+		
+		setTimeout(() => {
+			isSpinning = false;
+			winnerName = selectedOpt.attributes.label || selectedOpt.content;
+		}, 2000);
+	}
+
+	function getConicGradient(options: any[]) {
+		const total = options.reduce((sum, opt) => sum + (Number(opt.attributes.weight || 1)), 0);
+		let current = 0;
+		const colors = ['#f43f5e', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899', '#14b8a6', '#f97316'];
+		const parts = options.map((opt, i) => {
+			const weight = Number(opt.attributes.weight || 1);
+			const startPercent = (current / total) * 100;
+			current += weight;
+			const endPercent = (current / total) * 100;
+			return `${colors[i % colors.length]} ${startPercent}% ${endPercent}%`;
+		});
+		return `conic-gradient(${parts.join(', ')})`;
+	}
+
 	const noteIcons: Record<string, string> = { warning: '⚠️', danger: '🛑', success: '✅', info: 'ℹ️' };
 	const priorityColors: Record<string, string> = { high: '#f87171', medium: '#fbbf24', low: '#60a5fa' };
 	const aiTagMeta: Record<string, {icon: string, color: string, label: string}> = {
@@ -392,6 +460,202 @@
 			<div class="event-title">{node.attributes.title || 'Untitled Event'}</div>
 			<div class="event-body">{#if node.children.length > 0}{#each node.children as child}<SdoxRenderer node={child} />{/each}{:else}{node.content}{/if}</div>
 		</div>
+	</div>
+
+{:else if node.type === 'question'}
+	{@const options = node.children.filter(c => c.type === 'option')}
+	{@const explanationNode = node.children.find(c => c.type === 'explanation')}
+	{@const bodyNodes = node.children.filter(c => c.type !== 'option' && c.type !== 'explanation')}
+	<div class="sdox-question" id={node.attributes.id || undefined} data-answered={isAnswered}>
+		<div class="question-body">
+			{#each bodyNodes as child}<SdoxRenderer node={child} />{/each}
+		</div>
+		<div class="options-grid">
+			{#each options as opt}
+				{@const isSelected = selectedOptionKey === opt.attributes.key}
+				{@const isCorrect = opt.attributes.correct === true}
+				<button 
+					class="sdox-option" 
+					class:selected={isSelected}
+					class:correct={isAnswered && isCorrect}
+					class:incorrect={isAnswered && isSelected && !isCorrect}
+					disabled={isAnswered}
+					onclick={() => {
+						selectedOptionKey = opt.attributes.key;
+						isAnswered = true;
+					}}
+				>
+					<span class="option-marker">{opt.attributes.key || ''}</span>
+					<span class="option-content">
+						{#if opt.children.length > 0}
+							{#each opt.children as child}<SdoxRenderer node={child} />{/each}
+						{:else}
+							{opt.content || ''}
+						{/if}
+					</span>
+					{#if isAnswered}
+						{#if isCorrect}
+							<span class="option-status success">✓</span>
+						{:else if isSelected}
+							<span class="option-status danger">✗</span>
+						{/if}
+					{/if}
+				</button>
+			{/each}
+		</div>
+		
+		{#if isAnswered && (explanationNode || options.find(o => o.attributes.key === selectedOptionKey)?.attributes.explanation)}
+			{@const selectedOpt = options.find(o => o.attributes.key === selectedOptionKey)}
+			<div class="sdox-explanation-wrap">
+				{#if selectedOpt?.attributes.explanation}
+					<div class="shorthand-feedback" class:correct={selectedOpt.attributes.correct === true}>
+						<strong>{selectedOpt.attributes.correct ? 'Correct!' : 'Incorrect.'}</strong> {selectedOpt.attributes.explanation}
+					</div>
+				{/if}
+				{#if explanationNode}
+					<div class="sdox-explanation">
+						<div class="explanation-header"><span class="icon">💡</span> Explanation</div>
+						<div class="explanation-body">
+							{#if explanationNode.children.length > 0}
+								{#each explanationNode.children as child}<SdoxRenderer node={child} />{/each}
+							{:else}
+								{explanationNode.content || ''}
+							{/if}
+						</div>
+					</div>
+				{/if}
+			</div>
+		{/if}
+
+		{#if isAnswered}
+			<div class="question-actions">
+				<button class="sdox-btn-reset" onclick={() => { selectedOptionKey = null; isAnswered = false; }}>Reset Answer</button>
+			</div>
+		{/if}
+	</div>
+
+{:else if node.type === 'flashcard'}
+	{@const frontNode = node.children.find(c => c.type === 'front')}
+	{@const backNode = node.children.find(c => c.type === 'back')}
+	<div class="sdox-flashcard" class:flipped={isFlipped} onclick={() => isFlipped = !isFlipped}>
+		<div class="flashcard-inner">
+			<div class="flashcard-front">
+				<div class="side-badge">FRONT</div>
+				<div class="card-content">
+					{#if frontNode}
+						{#each frontNode.children as child}<SdoxRenderer node={child} />{/each}
+					{:else}
+						Click to flip
+					{/if}
+				</div>
+			</div>
+			<div class="flashcard-back">
+				<div class="side-badge">BACK</div>
+				<div class="card-content">
+					{#if backNode}
+						{#each backNode.children as child}<SdoxRenderer node={child} />{/each}
+					{/if}
+				</div>
+			</div>
+		</div>
+	</div>
+
+{:else if node.type === 'stepper'}
+	{@const steps = node.children.filter(c => c.type === 'step')}
+	<div class="sdox-stepper" id={node.attributes.id || undefined}>
+		<div class="stepper-header">
+			{#each steps as step, idx}
+				<button 
+					class="step-indicator" 
+					class:active={idx === currentStepIndex} 
+					class:completed={idx < currentStepIndex}
+					disabled={node.attributes.linear === true && idx > currentStepIndex}
+					onclick={() => currentStepIndex = idx}
+				>
+					<span class="step-num">{idx + 1}</span>
+					<span class="step-title">{step.attributes.title || `Step ${idx + 1}`}</span>
+				</button>
+				{#if idx < steps.length - 1}
+					<div class="step-line" class:completed={idx < currentStepIndex}></div>
+				{/if}
+			{/each}
+		</div>
+		<div class="stepper-body">
+			{#each steps as step, idx}
+				{#if idx === currentStepIndex}
+					<div class="step-content">
+						{#each step.children as child}<SdoxRenderer node={child} />{/each}
+					</div>
+				{/if}
+			{/each}
+		</div>
+		<div class="stepper-actions">
+			<button class="stepper-btn" disabled={currentStepIndex === 0} onclick={() => currentStepIndex--}>Back</button>
+			<button class="stepper-btn primary" disabled={currentStepIndex === steps.length - 1} onclick={() => currentStepIndex++}>Next</button>
+		</div>
+	</div>
+
+{:else if node.type === 'poll'}
+	{@const choices = node.children.filter(c => c.type === 'choice')}
+	{@const totalVotes = Object.values(pollVotes).reduce((a, b) => a + b, 0)}
+	<div class="sdox-poll" id={node.attributes.id || undefined}>
+		{#if node.attributes.question}
+			<h3 class="poll-question">{node.attributes.question}</h3>
+		{/if}
+		<div class="choices-list">
+			{#each choices as choice}
+				{@const key = choice.attributes.key}
+				{@const votes = pollVotes[key] || 0}
+				{@const percentage = totalVotes > 0 ? Math.round((votes / totalVotes) * 100) : 0}
+				<button 
+					class="sdox-choice" 
+					disabled={node.attributes.closed === true}
+					onclick={() => {
+						pollVotes[key] = (pollVotes[key] || 0) + 1;
+					}}
+				>
+					<div class="choice-bar" style="width: {percentage}%"></div>
+					<div class="choice-info">
+						<span class="choice-label">{choice.attributes.label || choice.content}</span>
+						<span class="choice-stats"><strong>{votes}</strong> votes ({percentage}%)</span>
+					</div>
+				</button>
+			{/each}
+		</div>
+		<div class="poll-footer">
+			<span class="total-count">Total Votes: {totalVotes}</span>
+			<button class="sdox-btn-reset-poll" onclick={() => {
+				const resetSeed: Record<string, number> = {};
+				choices.forEach(c => { resetSeed[c.attributes.key] = 0; });
+				pollVotes = resetSeed;
+			}}>Reset Poll</button>
+		</div>
+	</div>
+
+{:else if node.type === 'random-picker'}
+	{@const options = node.children.filter(c => c.type === 'picker-option')}
+	<div class="sdox-random-picker" id={node.attributes.id || undefined}>
+		<div class="picker-wheel-container">
+			<div 
+				class="wheel-disc" 
+				style="background: {getConicGradient(options)}; transform: rotate({spinAngle}deg); transition: transform 2s cubic-bezier(0.1, 0.8, 0.2, 1);"
+			>
+				{#if options.length === 0}
+					<div class="empty-wheel-text">No options</div>
+				{/if}
+			</div>
+			<div class="wheel-pointer">▼</div>
+		</div>
+		<div class="picker-actions">
+			<button class="spin-btn" disabled={isSpinning || options.length === 0} onclick={() => triggerPicker(options)}>
+				{isSpinning ? 'SPINNING...' : 'SPIN THE WHEEL!'}
+			</button>
+		</div>
+		{#if winnerName}
+			<div class="picker-winner-banner">
+				<span class="confetti">🎉</span> Selected: <strong>{winnerName}</strong> <span class="confetti">🎉</span>
+			</div>
+		{/if}
 	</div>
 
 {:else if ['dataset','embedding','chunk','context','completion'].includes(node.type)}
